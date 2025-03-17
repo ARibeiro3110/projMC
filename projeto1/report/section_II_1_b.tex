@@ -1,0 +1,37 @@
+Considere-se um método com convergência supralinear. Então:
+\begin{itemize}
+    \item \( \displaystyle \lim_{n \to \infty} x_n = z \);
+    \item \( \displaystyle \exists \, p > 1: \, 0 < \lim_{n \to \infty} \frac{|e_{n+1}|}{|e_n|^p} = L < \infty \Leftrightarrow \) \\
+          \( \Leftrightarrow \forall \varepsilon > 0 \quad \exists \, N_1 \in \mathbb{N}: \quad \forall n \geq N_1 \quad |z - x_{n+1}| \leq (L + \varepsilon) |z - x_n|^p\)
+\end{itemize}
+Antes da demonstração, pretende-se provar uma desigualdade que será útil posteriormente. \\
+Sejam \(a, b \in \mathbb{R}\) e \(c = \max\{|a|, |b|\}\). Então:
+\begin{equation}
+    |a + b| \leq |a| + |b| \leq 2c \Rightarrow |a + b|^p \leq (2c)^p = 2^p c^p =
+    \begin{cases} 
+        2^p |a|^p, & a > b \\
+        2^p |b|^p, & \text{c.c.}
+    \end{cases}
+    \leq 2^p (|a|^p + |b|^p)
+\label{desigualdade}
+\end{equation}
+Demonstra-se, agora, que \(|z - x_{n+1}| \leq |x_{n+1} - x_n|\):
+\[ |z - x_{n+1}|
+\leq (L + \varepsilon) |z - x_n|^p
+= (L + \varepsilon) \, \big|(z - x_{n+1}) + (x_{n+1} - x_n)\big|^p \overset{(\ref{desigualdade})}{\leq} \]
+\[ \overset{(\ref{desigualdade})}{\leq} (L + \varepsilon) \, 2^p \, \big( |z - x_{n+1}|^p + |x_{n+1} - x_n|^p \big)
+= (L + \tilde{\varepsilon}) \, \big( |z - x_{n+1}|^p + |x_{n+1} - x_n|^p \big) = \]
+\[ = (L + \tilde{\varepsilon}) |z - x_{n+1}|^p + (L + \tilde{\varepsilon}) |x_{n+1} - x_n|^p \Leftrightarrow \]
+\[ \Leftrightarrow |z - x_{n+1}| \leq (L + \tilde{\varepsilon}) |z - x_{n+1}|^{p-1} |z - x_{n+1}| + (L + \tilde{\varepsilon}) |x_{n+1} - x_n|^p \Leftrightarrow \]
+\[ \Leftrightarrow |z - x_{n+1}| - (L + \tilde{\varepsilon}) |z - x_{n+1}|^{p-1} |z - x_{n+1}| \leq (L + \tilde{\varepsilon}) |x_{n+1} - x_n|^p \Leftrightarrow \]
+\[ \Leftrightarrow |z - x_{n+1}| \leq \frac{(L + \tilde{\varepsilon}) |x_{n+1} - x_n|^p}{1 - (L + \tilde{\varepsilon}) |z - x_{n+1}|^{p-1}}
+= \frac{(L + \tilde{\varepsilon}) |x_{n+1} - x_n|^{p-1}}{1 - (L + \tilde{\varepsilon}) |z - x_{n+1}|^{p-1}} |x_{n+1} - x_n|\]
+Para obter \(|z - x_{n+1}| \leq |x_{n+1} - x_n|\), basta que o coeficiente que multiplica \(|x_{n+1} - x_n|\) seja \(\leq 1\):
+\[ \frac{(L + \tilde{\varepsilon}) |x_{n+1} - x_n|^{p-1}}{1 - (L + \tilde{\varepsilon}) |z - x_{n+1}|^{p-1}} \leq 1 \Leftrightarrow
+(L + \tilde{\varepsilon}) |x_{n+1} - x_n|^{p-1} \leq 1 - (L + \tilde{\varepsilon}) |z - x_{n+1}|^{p-1} \Leftrightarrow \]
+\[ \Leftrightarrow (L + \tilde{\varepsilon}) \big( |x_{n+1} - x_n|^{p-1} + |z - x_{n+1}|^{p-1} \big) \leq 1
+\Leftrightarrow \big( |x_{n+1} - x_n|^{p-1} + |z - x_{n+1}|^{p-1} \big) \leq \frac{1}{L + \tilde{\varepsilon}} \]
+Agora, como \(p - 1 > 0\) e os termos \(|x_{n+1} - x_n|\) e \(|z - x_{n+1}|\) tendem para zero quando \(n \to \infty\) (porque a sucessão converge), pode-se escolher \(N_2\) suficientemente grande para garantir que \(\forall n \geq N_2\) esta desigualdade é verdadeira. \\
+Portanto, para \(n \geq \max\{N_1, N_2\}\):
+\[ |z - x_{n+1}| \leq \underbrace{\frac{(L + \tilde{\varepsilon}) |x_{n+1} - x_n|^{p-1}}{1 - (L + \tilde{\varepsilon}) |z - x_{n+1}|^{p-1}}}_{\leq 1} \, |x_{n+1} - x_n| \leq |x_{n+1} - x_n|\]
+\hfill \(\square\)

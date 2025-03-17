@@ -1,0 +1,19 @@
+Na implementação da função \texttt{metodoIterativo}, pretende-se impor uma tolerância \(\epsilon\) para o erro relativo \(|\delta_{n+1}|\). Pode-se utilizar a majoração do erro da alínea anterior e, uma vez que \(x_{n+1}\) converge para \(z\), pode-se aproximar \(|z|\) por \(|x_{n+1}|\):
+\[
+    \left| \delta_{n+1} \right|
+    = \frac{\left|e_{n+1}\right|}{\left|z\right|}
+    \approx \frac{\left|e_{n+1}\right|}{\left|x_{n+1}\right|}
+    = \frac{\left|z - x_{n+1}\right|}{\left|x_{n+1}\right|}
+    \leq \frac{\left|x_{n+1} - x_n\right|}{\left|x_{n+1}\right|}
+    \leq \epsilon
+\]
+\lstinputlisting{II/metodoIterativo.m}
+
+\paragraph{}
+Os \textit{inputs} da função \texttt{metodoIterativo} são a função cujas raizes se pretende encontrar, a iterada inicial, a tolerância para o erro relativo e o número máximo de iterações a efetuar.
+O \textit{output} desta função é um vetor com todas as iteradas até que:
+\begin{itemize}
+    \item se atinja o número máximo de iteradas a fazer, M; ou
+    \item \(f(x_n)=0\), pois nesse caso encontrou-se a raiz da equação; ou
+    \item o erro relativo seja inferior à tolerância, \(\epsilon\).
+\end{itemize}

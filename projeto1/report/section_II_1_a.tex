@@ -1,0 +1,82 @@
+Seja \(z\) solução da equação \(f(x)=0\) e considere-se o método iterativo descrito. Para garantir a convergência local, é necessário que:
+\begin{itemize}
+    \item \(f \in C^2\) numa vizinhança de \(z\) que contenha \(x_0\);
+    \item \(f'(z) \neq 0\), ou seja, que \(z\) seja uma raiz simples da equação.
+\end{itemize}
+Seja \(e_n = x_n - z\) o erro da \(n\)-ésima iteração. \\
+\newline
+Procede-se à expansão em série de Taylor do termo \(f(x_n)\) em torno de \(z\): \\
+\[f(x_n) = f(z + e_n)
+= \cancelto{\scriptstyle 0}{f(z)} + f'(z) e_n + \frac{1}{2} f''(\xi_n^{(1)}) (e_n)^2
+= f'(z) e_n + \underbrace{\frac{1}{2} f''(\xi_n^{(1)}) (e_n)^2}_{O((e_n)^2)},\]
+para algum ponto \(\xi_n^{(1)}\) entre \(z\) e \(x_n\). \\
+À medida que \(e_n \to 0\), \((e_n)^2\) converge mais rapidamente para 0 do que \(e_n\), portanto, quando \(e_n\) é pequeno, o termo \(f'(z) e_n\) domina, e o termo \(\frac{1}{2} f''(\xi_n^{(1)}) (e_n)^2 = O((e_n)^2)\) é considerado de ordem superior em relação ao primeiro, justificando a sua desprezibilidade em estimativas posteriores:
+\[f(x_n) = f'(z) e_n + O((e_n)^2) \approx f'(z) e_n.\]
+\newline
+Pretende-se, de seguida, expandir o termo \(f(x_n + f(x_n))\) em torno de \(z\). Note-se que:
+\[x_n + f(x_n)
+= (z + e_n) + \big[ f'(z) e_n + \frac{1}{2} f''(\xi_n^{(1)}) (e_n)^2 \big]
+= z + \underbrace{e_n + f'(z) e_n + \frac{1}{2} f''(\xi_n^{(1)}) (e_n)^2}_{\delta_n^+}.\]
+Portanto:
+\[\ f(x_n + f(x_n)) = f(z + \delta_n^+)
+= \cancelto{\scriptstyle 0}{f(z)} + f'(z) \delta_n^+ + \frac{1}{2} f''(\xi_n^{(2)}) (\delta_n^+)^2
+= f'(z) \delta_n^+ + \frac{1}{2} f''(\xi_n^{(2)}) (\delta_n^+)^2,\]
+para algum ponto \(\xi_n^{(2)}\) entre \(z\) e \(z + \delta_n^+\). \\
+\newline
+Analogamente, para expandir o termo \(f(x_n - f(x_n))\) em torno de \(z\):
+\[x_n - f(x_n)
+= (z + e_n) - \big[ f'(z) e_n + \frac{1}{2} f''(\xi_n^{(1)}) (e_n)^2 \big]
+= z + \underbrace{e_n - f'(z) e_n - \frac{1}{2} f''(\xi_n^{(1)}) (e_n)^2}_{\delta_n^-}.\]
+\[\ f(x_n - f(x_n)) = f(z + \delta_n^-)
+= \cancelto{\scriptstyle 0}{f(z)} + f'(z) \delta_n^- + \frac{1}{2} f''(\xi_n^{(3)}) (\delta_n^-)^2
+= f'(z) \delta_n^- + \frac{1}{2} f''(\xi_n^{(3)}) (\delta_n^-)^2,\]
+para algum ponto \(\xi_n^{(3)}\) entre \(z\) e \(z + \delta_n^-\). \\
+\newline
+Pretende-se, agora, inserir estas expansões na expressão do método iterativo.
+\newpage
+\noindent Para o denominador:
+\[ f(x_n + f(x_n)) - f(x_n - f(x_n))
+= f'(z) (\delta_n^+ - \delta_n^-) + \underbrace{\frac{1}{2} f''(\xi_n^{(2)}) (\delta_n^+)^2 - \frac{1}{2} f''(\xi_n^{(3)}) (\delta_n^-)^2}_{O((e_n)^2)}. \]
+Os dois últimos termos são quadráticos nos \(\delta_n^\pm\), ou seja, são polinómios de termos quadráticos, cúbicos e quárticos em \(e_n\). Uma vez que, à medida que \(e_n \to 0\), \((e_n)^2\), \((e_n)^3\) e \((e_n)^4\) convergem mais rapidamente para 0 do que \(e_n\), desprezam-se esses termos:
+\[ f(x_n + f(x_n)) - f(x_n - f(x_n))
+= f'(z) (\delta_n^+ - \delta_n^-) + O((e_n)^2)
+\approx f'(z) (\delta_n^+ - \delta_n^-).\]
+Conservando apenas os termos lineares em \(e_n\) de \(\delta_n^+\) e de \(\delta_n^-\) e desprezando os termos quadráticos (pelo mesmo motivo justificado acima), tem-se:
+\[ \delta_n^+ - \delta_n^-
+\approx (e_n + f'(z) e_n) - (e_n - f'(z) e_n)
+= 2 f'(z) e_n.\]
+Portanto:
+\[ f(x_n + f(x_n)) - f(x_n - f(x_n))
+= 2 (f'(z))^2 e_n + O((e_n)^2)
+\approx 2 (f'(z))^2 e_n.\]
+\newline
+Para o numerador (utilizando a expansão de Taylor de \(f(x_n)\)):
+\[ 2(f(x_n))^2
+= 2 \big(f'(z) e_n + O((e_n)^2)\big)^2
+= 2 (f'(z))^2 (e_n)^2 + O((e_n)^3) + \cancelto{\scriptstyle <O((e_n)^3)}{O((e_n)^4)}\]
+\[= 2 (f'(z))^2 (e_n)^2 + O((e_n)^3)
+\approx 2 (f'(z))^2 (e_n)^2.\]
+\newline
+À medida que \(e_n \to 0\), substituindo estas estimativas na expressão do método iterativo, obtém-se:
+\[ \frac{2 (f(x_n))^2}
+        {f(x_n + f(x_n)) - f(x_n - f(x_n))}
+\approx \frac{2 \, (f'(z))^2 \, (e_n)^2}
+             {2 \, (f'(z))^2 \, e_n}
+= e_n. \]
+Desse modo, para \(n\) suficientemente grande, a expressão do método fica aproximadamente:
+\[ x_{n+1} \approx x_n - e_n = x_n - (x_n - z) = z.\]
+Quanto à ordem de convergência:
+\[ e_{n+1} = x_{n+1} - z
+= \Big(x_n - \frac{2 (f(x_n))^2}{f(x_n + f(x_n)) - f(x_n - f(x_n))}\Big) - z = \]
+\[ = (x_n - z) - \frac{2 (f(x_n))^2}{f(x_n + f(x_n)) - f(x_n - f(x_n))}
+= e_n - \frac{2 (f(x_n))^2}{f(x_n + f(x_n)) - f(x_n - f(x_n))} = \]
+\[ = e_n - \frac{2 (f'(z))^2 (e_n)^2 + O((e_n)^3)}{2 (f'(z))^2 e_n + O((e_n)^2)}
+= e_n - \frac{(e_n)^2 \, [2 (f'(z))^2 + O(e_n)]}{(e_n) \, [2 (f'(z))^2 + O(e_n)]}
+= e_n - (e_n) \underbrace{\frac{2 (f'(z))^2 + \alpha_n e_n}{2 (f'(z))^2 + \beta_n e_n}}_{\approx 1 + O(e_n)} = \]
+\[= e_n - (e_n) \, [1 + O(e_n)]
+= e_n - e_n + O((e_n)^2) = O((e_n)^2)
+\Leftrightarrow e_{n+1} = O((e_n)^2)
+\Leftrightarrow e_{n+1} = L_n (e_n)^2 \Rightarrow \]
+\[ \Rightarrow \lim_{n \to \infty} \frac{|e_{n+1}|}{|e_n|^2}
+= \lim_{n \to \infty} |L_n| = L \text{, \quad com \(L\) constante finita não nula}\]
+Desta forma, conclui-se que o método tem convergência de ordem 2 (convergência quadrática).
